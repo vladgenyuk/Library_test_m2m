@@ -1,0 +1,8 @@
+docker volume create mysql-data
+docker run --name 1AK_mysql -p 3306:3306 -e MYSQL_ROOT_PASSWORD=secret -e MYSQL_USER=vlad -e MYSQL_PASSWORD=qseawdzxc1 -e MYSQL_DATABASE=library -e MYSQL_CHARACTER_SET_SERVER=utf8mb4 -e MYSQL_COLLATION_SERVER=utf8mb4_general_ci -d mysql:latest
+
+alembic init -t async migrations
+alembic upgrade head
+
+mysql -u vlad -p
+use library;

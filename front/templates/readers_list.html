@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+</head>
+<h1 class="text-center">Chose your Email from list</h1>
+<a class="text-center" href="{{ url_for('register_reader_pages') }}"><h3>If you are not in list, please register</h3></a>
+<body>
+{% for i in readers %}
+<div class="container">
+    <div class="card">
+        <div class="card-small">
+            <a href="{{ url_for('login_reader_pages', email=i.email) }}">
+                <h5 class="text-center">ID: {{ i.id }} {{ i.email }}</h5>
+                <h6 class="text-center">Registered at: {{ i.registered_at }}</h6>
+            </a>
+        </div>
+    </div>
+</div>
+{% endfor %}
+</body>
+</html>

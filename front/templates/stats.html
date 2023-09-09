@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+</head>
+<body>
+<button class="btn btn-dark" onclick="goBack()">Back</button>
+<h2 class="text-center">Info for user with email: </h2>
+<h3 class="text-info text-center">{% if stats %}{{ stats[0]['Reader']['email'] }}{% else %}None{% endif %}</h3>
+<div class="container">
+    {% if stats %}
+        {% for i in stats %}
+            <h3 class="text-info">{{ i['Book']['title'] }}</h3>
+            <h5>{{ i['ReadersBooks']['issued_at'] }} -- {{ i['ReadersBooks']['returned_at'] }}</h5>
+
+        {% endfor %}
+    {% else %}
+            <h3 class="text-info">None</h3>
+            <h5>None</h5>
+    {% endif %}
+
+</div>
+<script>
+    function goBack(){
+        window.history.back();
+    }
+</script>
+</body>
+</html>

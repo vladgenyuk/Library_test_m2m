@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+
+</head>
+<body>
+<a href="{{ url_for('return_pages') }}"><button class="btn btn-dark">My books</button></a>
+{% for i in books %}
+<div class="container">
+    <div class="card">
+        <div class="card-body">
+            <h5 class="card-title">ID: {{ i }} - {{ books[i][0] }}</h5>
+            <h6 class="card-subtitle mb-2 text-muted">Authors: </h6>
+            <ul>
+                {% for j in books[i][1:] %}
+                    <li>{{ j['first_name'] }} {{ j['last_name'] }}</li>
+                {% endfor %}
+            </ul>
+            <button class="btn btn-primary" id="borrow-{{ i }}" data-item-id="{{ i }}">Borrow</button>
+        </div>
+    </div>
+</div>
+{% endfor %}
+
+<script>
+    const borrowButtons = document.querySelectorAll("[id^=borrow-]");
+
+    borrowButtons.forEach(button => {
+        button.addEventListener('click', async () => {
+        const itemId = button.dataset.itemId;
+
+        const response = await fetch(`http://127.0.0.1:8000/reader/borrow?book_id=${itemId}`, {
+            headers: {
+                Accept: "application/json"
+            },
+            method: "PUT"
+        })
+        button.innerHTML = 'Borrowed';
+    });
+});
+</script>
+
+</body>
+</html>
